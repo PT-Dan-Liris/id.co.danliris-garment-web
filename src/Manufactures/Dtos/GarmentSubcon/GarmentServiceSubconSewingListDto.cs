@@ -11,21 +11,25 @@ namespace Manufactures.Dtos.GarmentSubcon
         {
             Id = garmentServiceSubconSewingList.Identity;
             ServiceSubconSewingNo = garmentServiceSubconSewingList.ServiceSubconSewingNo;
-           // Unit = new UnitDepartment(garmentServiceSubconSewingList.UnitId.Value, garmentServiceSubconSewingList.UnitCode, garmentServiceSubconSewingList.UnitName);
+            BuyerName = garmentServiceSubconSewingList.BuyerName;
+            // Unit = new UnitDepartment(garmentServiceSubconSewingList.UnitId.Value, garmentServiceSubconSewingList.UnitCode, garmentServiceSubconSewingList.UnitName);
             ServiceSubconSewingDate = garmentServiceSubconSewingList.ServiceSubconSewingDate;
             CreatedBy = garmentServiceSubconSewingList.AuditTrail.CreatedBy;
             IsUsed = garmentServiceSubconSewingList.IsUsed;
+            UOM = "PCS";
             Items = new List<GarmentServiceSubconSewingItemDto>();
         }
 
         public Guid Id { get; set; }
         public string ServiceSubconSewingNo { get; set; }
+        public string BuyerName { get; set; }
         public UnitDepartment Unit { get; set; }
         public string SewingTo { get; set; }
         public DateTimeOffset ServiceSubconSewingDate { get; set; }
         public double TotalQuantity { get; set; }
         public double TotalRemainingQuantity { get; set; }
         public bool IsUsed { get; set; }
+        public string UOM{ get; set; }
         public List<GarmentServiceSubconSewingItemDto> Items { get; set; }
     }
 }

@@ -76,6 +76,7 @@ namespace Manufactures.Application.GarmentSubcon.GarmentServiceSubconSewings.Com
                     var SewingInItems = _garmentSewingInItemRepository.Query.Where(x => x.SewingInId == sewIn.Identity).OrderBy(a => a.CreatedDate).ToList();
                     foreach (var sewInItem in SewingInItems)
                     {
+                        var remark = item.Details.FirstOrDefault(x => x.Unit.Id == sewIn.UnitId && x.DesignColor == sewInItem.Color).Remark;
                         var subconSewingDetails = _garmentServiceSubconSewingDetailRepository.Query.Where(o => o.SewingInItemId == sewInItem.Identity);
                         if (subconSewingDetails != null)
                         {
@@ -101,7 +102,8 @@ namespace Manufactures.Application.GarmentSubcon.GarmentServiceSubconSewings.Com
                                     sewInItem.UomUnit,
                                     new UnitDepartmentId(sewIn.UnitId),
                                     sewIn.UnitCode,
-                                    sewIn.UnitName
+                                    sewIn.UnitName,
+                                    remark
                                 ));
                             }
                         }
@@ -133,7 +135,8 @@ namespace Manufactures.Application.GarmentSubcon.GarmentServiceSubconSewings.Com
                                     d.UomUnit,
                                     d.UnitId,
                                     d.UnitCode,
-                                    d.UnitName
+                                    d.UnitName,
+                                    d.Remark
                                 );
                                 await _garmentServiceSubconSewingDetailRepository.Update(garmentServiceSubconSewingDetail);
                                 break;
@@ -155,7 +158,8 @@ namespace Manufactures.Application.GarmentSubcon.GarmentServiceSubconSewings.Com
                                     d.UomUnit,
                                     d.UnitId,
                                     d.UnitCode,
-                                    d.UnitName
+                                    d.UnitName,
+                                    d.Remark
                                 );
                                 await _garmentServiceSubconSewingDetailRepository.Update(garmentServiceSubconSewingDetail);
                             }

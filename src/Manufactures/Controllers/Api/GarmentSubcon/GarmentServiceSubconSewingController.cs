@@ -42,7 +42,13 @@ namespace Manufactures.Controllers.Api.GarmentSubcon
 
             List<GarmentServiceSubconSewingListDto> garmentServiceSubconSewingListDtos = _garmentServiceSubconSewingRepository
                 .Find(query)
-                .Select(ServiceSubconSewing => new GarmentServiceSubconSewingListDto(ServiceSubconSewing))
+                .Select(ServiceSubconSewing => new GarmentServiceSubconSewingListDto(ServiceSubconSewing) { 
+                    Items = _garmentServiceSubconSewingItemRepository.Find(o => o.ServiceSubconSewingId == ServiceSubconSewing.Identity).Select(ServiceSubconSewingItem => new GarmentServiceSubconSewingItemDto(ServiceSubconSewingItem) { 
+                        Details = _garmentServiceSubconSewingDetailRepository.Find(o => o.ServiceSubconSewingItemId == ServiceSubconSewingItem.Identity).Select(ServiceSubconSewingDetail => new GarmentServiceSubconSewingDetailDto(ServiceSubconSewingDetail) { 
+                        
+                        }).ToList()
+                    }).ToList()
+                })
                 .ToList();
 
             var dtoIds = garmentServiceSubconSewingListDtos.Select(s => s.Id).ToList();
@@ -52,6 +58,11 @@ namespace Manufactures.Controllers.Api.GarmentSubcon
                 .ToList();
 
             var itemIds = items.Select(s => s.Identity).ToList();
+
+            foreach (var data in garmentServiceSubconSewingListDtos)
+            {
+                data.TotalQuantity = data.Items.Sum(x => x.Details.Sum(o => o.Quantity));
+            }
 
             //Parallel.ForEach(garmentServiceSubconSewingListDtos, dto =>
             //{
