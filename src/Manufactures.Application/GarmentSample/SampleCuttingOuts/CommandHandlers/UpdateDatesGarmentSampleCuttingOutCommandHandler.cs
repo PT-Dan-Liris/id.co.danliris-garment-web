@@ -39,7 +39,6 @@ namespace Manufactures.Application.GarmentSample.SampleCuttingOuts.CommandHandle
                 await _GarmentSampleCuttingOutRepository.Update(model);
             }
             _storage.Save();
-
             return guids.Count();
         }
     }
