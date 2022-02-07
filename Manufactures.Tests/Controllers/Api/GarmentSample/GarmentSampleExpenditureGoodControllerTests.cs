@@ -1,5 +1,6 @@
 ﻿using Barebone.Tests;
 using Manufactures.Application.GarmentSample.SampleExpenditureGoods.Queries;
+using Manufactures.Application.GarmentSample.SampleExpenditureGoods.Queries.ArchiveMonitoring;
 using Manufactures.Controllers.Api.GarmentSample;
 using Manufactures.Domain.GarmentSample.SampleExpenditureGoods;
 using Manufactures.Domain.GarmentSample.SampleExpenditureGoods.Commands;
@@ -482,6 +483,23 @@ namespace Manufactures.Tests.Controllers.Api.GarmentSample
         //    var result = await unitUnderTest.GetXls(DateTime.Now, DateTime.Now, 1, 25, "{}");
         //    Assert.Equal((int)HttpStatusCode.InternalServerError, GetStatusCode(result));
         //}
+
+        [Fact]
+        public async Task GetArchiveReport_Return_Success()
+        {
+            // Arrange
+            var unitUnderTest = CreateGarmentSampleExpenditureGoodController();
+            Guid ExpenditureGoodGuid = Guid.NewGuid();
+            _MockMediator
+                .Setup(s => s.Send(It.IsAny<GarmentArchiveMonitoringQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new GarmentArchiveMonitoringViewModel());
+
+            // Act
+            var result = await unitUnderTest.GetArchiveMonitoring("", "", "", 1, 25, "{}");
+
+            // Assert
+            Assert.Equal((int)HttpStatusCode.OK, GetStatusCode(result));
+        }
 
         [Fact]
         public async Task GetForTraceable_StateUnderTest_ExpectedBehavior()
