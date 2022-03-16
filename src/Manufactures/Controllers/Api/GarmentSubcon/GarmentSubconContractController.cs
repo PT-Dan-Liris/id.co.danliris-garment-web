@@ -1,7 +1,11 @@
 ﻿using Barebone.Controllers;
 using Infrastructure.Data.EntityFrameworkCore.Utilities;
+using Manufactures.Application.GarmentSubcon.GarmentSubconContracts.ExcelTemplates;
 using Manufactures.Application.GarmentSubcon.Queries.GarmentRealizationSubconReport;
+using Manufactures.Application.GarmentSubcon.Queries.GarmentSubconContactReport;
+using Manufactures.Domain.GarmentSubcon.SubconContracts;
 using Manufactures.Domain.GarmentSubcon.SubconContracts.Commands;
+using Manufactures.Domain.GarmentSubcon.SubconContracts.ReadModels;
 using Manufactures.Domain.GarmentSubcon.SubconContracts.Repositories;
 using Manufactures.Dtos.GarmentSubcon;
 using Microsoft.AspNetCore.Authorization;
@@ -197,6 +201,84 @@ namespace Manufactures.Controllers.Api.GarmentSubcon
 
                 if (subconcontractNo != null) filename += " " + subconcontractNo;
                 filename += ".xlsx";
+
+                xlsInBytes = xls.ToArray();
+                var file = File(xlsInBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+                return file;
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("subcon-contract-report")]
+        public async Task<IActionResult> GetSubconContractReport(int supplierNo, string contractType, DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string order = "{ }")
+        {
+            VerifyUser();
+            GarmentSubconContactReportQuery query = new GarmentSubconContactReportQuery(page, size,order, supplierNo, contractType, dateFrom, dateTo);
+            var viewModel = await Mediator.Send(query);
+
+           
+
+            return Ok(viewModel, info: new
+            {
+                page,
+                size,
+                viewModel.count
+            });
+           
+        }
+
+        [HttpGet("subcon-contract-report/download")]
+        public async Task<IActionResult> GetXlsSubconContractReport(int supplierNo, string contractType, DateTime dateFrom, DateTime dateTo, int page = 1, int size = 25, string order = "{ }")
+        {
+            try
+            {
+                VerifyUser();
+                GetXlsGarmentSubconContractReporQuery query = new GetXlsGarmentSubconContractReporQuery(page, size, order, supplierNo, contractType, dateFrom, dateTo);
+                byte[] xlsInBytes;
+
+                var xls = await Mediator.Send(query);
+
+                string filename = String.Format("Laporan SubContract.xlsx");
+
+                //if (subconcontractNo != null) filename += " " + subconcontractNo;
+                //filename += ".xlsx";
+
+                xlsInBytes = xls.ToArray();
+                var file = File(xlsInBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
+                return file;
+            }
+            catch (Exception e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [HttpGet("xls/{id}")]
+        public async Task<IActionResult> GetXls(string id)
+        {
+            try
+            {
+                Guid guid = Guid.Parse(id);
+                VerifyUser();
+
+                GarmentSubconContractExcelDto garmentSubconContractDto = _garmentSubconContractRepository.Find(o => o.Identity == guid).Select(subcon => new GarmentSubconContractExcelDto(subcon)
+                {
+                    Items = _garmentSubconContractItemRepository.Find(o => o.SubconContractId == subcon.Identity).Select(subconItem => new GarmentSubconContractItemExcelDto(subconItem)
+                    {
+
+                    }).ToList()
+                }).FirstOrDefault();
+                byte[] xlsInBytes;
+
+                var xls = GarmentSubconContractAgreementExcelTemplate.GenerateExcelTemplate(garmentSubconContractDto);
+
+                string filename = String.Format($"{garmentSubconContractDto.ContractNo}.xlsx");
+
+                //if (subconcontractNo != null) filename += " " + subconcontractNo;
+                //filename += ".xlsx";
 
                 xlsInBytes = xls.ToArray();
                 var file = File(xlsInBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", filename);
