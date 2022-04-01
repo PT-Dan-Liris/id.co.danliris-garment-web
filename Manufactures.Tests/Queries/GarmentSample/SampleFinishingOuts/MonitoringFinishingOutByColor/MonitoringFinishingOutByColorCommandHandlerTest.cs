@@ -172,7 +172,7 @@ namespace Manufactures.Tests.Queries.GarmentSample.SampleFinishingOuts.Monitorin
 				.Setup(s => s.Query)
 				.Returns(new List<GarmentSampleRequestReadModel>
 				{
-					new Domain.GarmentSample.SampleRequests.GarmentSampleRequest (guidGarmentPreparing,"","","","",DateTimeOffset.Now,new Domain.Shared.ValueObjects.BuyerId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","","","",DateTimeOffset.Now,"","","",true,true,DateTimeOffset.Now,"",false,DateTimeOffset.Now,"","",false,DateTimeOffset.Now,"","","","","","",new Domain.Shared.ValueObjects.SectionId(1),"", null).GetReadModel()
+					new Domain.GarmentSample.SampleRequests.GarmentSampleRequest (guidGarmentPreparing,"","","","",DateTimeOffset.Now,new Domain.Shared.ValueObjects.BuyerId(1),"","",new Domain.Shared.ValueObjects.GarmentComodityId(1),"","","","",DateTimeOffset.Now,"","","",true,true,DateTimeOffset.Now,"",false,DateTimeOffset.Now,"","",false,DateTimeOffset.Now,"","","","","","",new Domain.Shared.ValueObjects.SectionId(1),"").GetReadModel()
 				}.AsQueryable());
 			// Act
 			var result = await unitUnderTest.Handle(getMonitoring, cancellationToken);
