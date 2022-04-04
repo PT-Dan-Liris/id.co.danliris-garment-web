@@ -77,7 +77,6 @@ namespace Manufactures.Tests.Queries.GarmentSample.SampleCuttingOuts.Monitoring
             serviceProviderMock = new Mock<IServiceProvider>();
             _mockhttpService = CreateMock<IHttpClientService>();
 
-
             //List<CostCalViewModel> costCalViewModels = new List<CostCalViewModel> {
             //    new CostCalViewModel
             //    {
