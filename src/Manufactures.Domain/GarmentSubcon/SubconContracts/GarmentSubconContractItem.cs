@@ -24,6 +24,9 @@ namespace Manufactures.Domain.GarmentSubcon.SubconContracts
         public int CIFItem { get; private set; }
 
         public GarmentSubconContractItem(Guid identity, Guid subconContractId, ProductId productId, string productCode, string productName, double quantity, UomId uomId, string uomUnit, int cifItem) : base(identity)
+        public double CIFItem { get; private set; }
+
+        public GarmentSubconContractItem(Guid identity, Guid subconContractId, ProductId productId, string productCode, string productName, double quantity, UomId uomId, string uomUnit, double cifItem) : base(identity)
         {
             Identity = identity;
             SubconContractId = subconContractId;
@@ -69,7 +72,7 @@ namespace Manufactures.Domain.GarmentSubcon.SubconContracts
                 ReadModel.Quantity = Quantity;
             }
         }
-        public void SetCIFItem(int CIFItem)
+        public void SetCIFItem(double CIFItem)
         {
             if (this.CIFItem != CIFItem)
             {
