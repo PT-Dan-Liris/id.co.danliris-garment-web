@@ -21,9 +21,6 @@ namespace Manufactures.Domain.GarmentSubcon.SubconContracts
 
         public UomId UomId { get; private set; }
         public string UomUnit { get; private set; }
-        public int CIFItem { get; private set; }
-
-        public GarmentSubconContractItem(Guid identity, Guid subconContractId, ProductId productId, string productCode, string productName, double quantity, UomId uomId, string uomUnit, int cifItem) : base(identity)
         public double CIFItem { get; private set; }
 
         public GarmentSubconContractItem(Guid identity, Guid subconContractId, ProductId productId, string productCode, string productName, double quantity, UomId uomId, string uomUnit, double cifItem) : base(identity)
