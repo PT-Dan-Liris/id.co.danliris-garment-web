@@ -41,6 +41,11 @@ namespace Manufactures.Tests.Validations.GarmentSubcon.GarmentServiceSubconCutti
                 IsUsed = true,
                 SubconDate = DateTimeOffset.Now,
                 SubconNo = "CuttingOutNo",
+<<<<<<< HEAD
+=======
+                NettWeight = 1, 
+                GrossWeight = 1,
+>>>>>>> To-Dev
                 Uom = new Uom()
                 {
                     Id = 1,
