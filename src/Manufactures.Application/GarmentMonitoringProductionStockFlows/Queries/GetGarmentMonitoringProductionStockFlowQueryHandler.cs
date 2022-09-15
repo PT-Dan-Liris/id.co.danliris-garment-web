@@ -2363,11 +2363,14 @@ namespace Manufactures.Application.GarmentMonitoringProductionStockFlows.Queries
                                where ros.Contains(a.RO)
                                select new
                                {
-                                   BasicPrice = 
-                                   //Math.Round(Convert.ToDouble(a.BasicPrice / a.Count), 2) 
-                                   //* 
-                                   Math.Round(Convert.ToDouble((bb.FC / bb.Count)) == 0 ? cc.BasicPrice : 
-                                   Math.Round(Convert.ToDouble(a.BasicPrice / a.Count), 2) * Convert.ToDouble(bb.FC / bb.Count),2),
+                                   BasicPrice =
+                                    //Math.Round(Convert.ToDouble(a.BasicPrice / a.Count), 2) 
+                                    //* 
+                                    //Math.Round(Convert.ToDouble((bb.FC / bb.Count)) == 0 ? cc.BasicPrice : 
+                                    //Math.Round(Convert.ToDouble(a.BasicPrice / a.Count), 2) * Convert.ToDouble(bb.FC / bb.Count),2),
+                                    Math.Round(Convert.ToDouble((bb != null ? (bb.FC / bb.Count) : 0) == 0 ? cc == null ? 0 : cc.BasicPrice : 
+                                    Math.Round(Convert.ToDouble(a.BasicPrice / a.Count), 2)) * Convert.ToDouble(bb != null ? bb.FC / bb.Count : 0), 2),
+
                                    realization = a.RO
                                }).ToList();
 
