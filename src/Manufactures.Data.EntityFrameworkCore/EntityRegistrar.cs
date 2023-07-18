@@ -59,6 +59,7 @@ using Manufactures.Data.EntityFrameworkCore.GarmentSample.GarmentServiceSampleSh
 using Manufactures.Data.EntityFrameworkCore.GarmentSample.GarmentServiceSampleFabricWashes.Config;
 using Manufactures.Data.EntityFrameworkCore.GarmentSample.ServiceSampleExpenditureGood.Config;
 
+
 namespace Manufactures.Data.EntityFrameworkCore
 {
 	public class EntityRegistrar : IEntityRegistrar
