@@ -22,7 +22,7 @@ namespace Manufactures.Tests.Helpers
             var dto = new GarmentSubconDeliveryLetterOutDto(new GarmentSubconDeliveryLetterOut(id, null, null, id, "", "", DateTimeOffset.Now, 1, "", "", 1, "", false, "", "SUBCON CUTTING SEWING"));
 
             var scDto = new GarmentSubconContractDto(new GarmentSubconContract(id, "", "", "", new SupplierId(0), "", "", "", "","", 0, DateTimeOffset.Now, DateTimeOffset.Now, true, "",new UomId(1),"","",DateTimeOffset.Now,0,0,0));
-            var garmentSubconDLOutItem = new GarmentSubconDeliveryLetterOutItem(id, id, 1, new Domain.Shared.ValueObjects.ProductId(1), "code", "name", "remark", "color", 1, new Domain.Shared.ValueObjects.UomId(1), "unit", new Domain.Shared.ValueObjects.UomId(1), "unit", "fabType", new Guid(), "", "", "", "", 1, 1, "")
+            var garmentSubconDLOutItem = new GarmentSubconDeliveryLetterOutItem(id, id, 1, new Domain.Shared.ValueObjects.ProductId(1), "code", "name", "remark", "color", 1, new Domain.Shared.ValueObjects.UomId(1), "unit", new Domain.Shared.ValueObjects.UomId(1), "unit", "fabType", new Guid(), "", "", "", "", 1, 1, "");
             var items = new List<GarmentSubconDeliveryLetterOutItemDto>()
             {
                 new GarmentSubconDeliveryLetterOutItemDto(garmentSubconDLOutItem)
