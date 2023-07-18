@@ -53,6 +53,12 @@ using Microsoft.EntityFrameworkCore;
 using Manufactures.Data.EntityFrameworkCore.GarmentSubcon.SubconReprocess.Config;
 using Manufactures.Data.EntityFrameworkCore.GarmentSubcon.ServiceSubconExpenditureGood.Config;
 using Manufactures.Data.EntityFrameworkCore.GarmentSubcon.InvoicePackingList.ReceiptConfigs;
+using Manufactures.Data.EntityFrameworkCore.GarmentSample.GarmentServiceSampleCuttings.Configs;
+using Manufactures.Data.EntityFrameworkCore.GarmentSample.GarmentServiceSampleSewings.Config;
+using Manufactures.Data.EntityFrameworkCore.GarmentSample.GarmentServiceSampleShrinkagePanels.Config;
+using Manufactures.Data.EntityFrameworkCore.GarmentSample.GarmentServiceSampleFabricWashes.Config;
+using Manufactures.Data.EntityFrameworkCore.GarmentSample.ServiceSampleExpenditureGood.Config;
+
 
 namespace Manufactures.Data.EntityFrameworkCore
 {
